@@ -11,14 +11,16 @@ const scoreByOption = new Map(
     question.id,
     new Map(
       question.options
-        .filter((option) => option.score !== undefined)
+        // score 没填是等 B 的对照表；显式 null 是架构 §4 的跳过标记（过敏题「都没有」）。两者都不进字典。
+        .filter((option) => option.score !== undefined && option.score !== null)
         .map((option) => [option.id, option.score]),
     ),
   ]),
 )
 
 // 架构 §3 的答案字典：键是题目 id，值是选项对应的 1–5 档。
-// 只有 questions.js 里填了 score 的题会出现在字典中；原六题的映射等 B 的对照表，填完自动补齐，这里不用改。
+// 原六题的映射等 B 的对照表，填完自动补齐，这里不用改。
+// 架构 §4：allergy 键不在字典里就等于「无顾虑，整题跳过」，rankPets 按缺键处理，别在这里补默认值。
 export function toAnswerScores(answers) {
   const scores = {}
   for (const [questionId, optionId] of Object.entries(answers ?? {})) {
