@@ -11,7 +11,7 @@
 | `#/` | 一句话「先找到适合你的宠物类型，再决定要不要领养」、开始匹配、固定三张热门卡；点卡看详情，也能进入领养指南 | A · HomePage、PetCard、AppShell |
 | `#/quiz` | 六题依次为住房、陪伴时间、经验、过敏、月预算、安静或活泼；一题一屏，显示第几题和总数，单选后推进，可退回改选；末题确认后看结果 | A · QuizPage、ChoiceGroup、ProgressBar |
 | `#/results` | 三张卡显示名称、整数匹配度和一句理由；三种都可查看详情，仅第一名有试养按钮；可重新测 | A · ResultsPage、MatchCard |
-| `#/pets/:id` | 顶部放难度、月花费区间、寿命；下方展示性格、空间和陪伴需求、掉毛、叫声、粘人、运动量、过敏友好度、适合人群、注意事项；可收藏、进入该类型清单 | A · PetDetailPage，C · FavoriteButton |
+| `#/pets/:id` | 顶部放难度、月花费区间、寿命；下方展示性格、空间和陪伴需求、掉毛、叫声、粘人、运动量、过敏友好度、适合人群、注意事项；可收藏、进入该类型清单；「试养一下」按钮仅当该类型是本轮 Top 1 时出现，未做问卷或不是 Top 1 都不渲染 | A · PetDetailPage，C · FavoriteButton |
 | `#/trial` | 从结果第一名进入。五张卡逐张选，顶部显示忍受度；结束后原页展示分数、结论和扣分点，给出下一步 | C · TrialPage、ScenarioCard、TrialSummary |
 | `#/guide` | 意向申请 → 初筛沟通 → 线下见面 → 正式领养；列渠道类型及防骗提醒 | A · GuidePage，B · 文案 |
 | `#/checklist/:id` | 标题显示当前宠物，5–7 个带文字的勾选项，随勾随存 | A · ChecklistPage，C · 勾选控件与存储 |
@@ -46,13 +46,15 @@ Vite + React（JavaScript）+ Tailwind + HashRouter。使用组件状态、纯�
 | readAnswers()、saveAnswers(answers)、clearAnswers() | 当前六题选项 | A 写 sessionStorage，C 从同模块读；重新测清除旧轮次 |
 | getScenarios(petId)、getChecklist(petId) | 目录中有效的宠物 id | 分别返回五个场景、5–7 项清单。场景视图含 id、text，清单视图含 id、label |
 | FavoriteButton、ChecklistItems | 前者收 petId，后者收 petId 与 items | C 自行读写状态，A 挂载组件；切换宠物后立即呈现对应状态 |
-| TrialPage | 通过 readAnswers 和 rankPets 派生 Top 1 | 缺有效答案回问卷；按 Top 1 取卡，拒绝用任意 URL 参数指定其他类型 |
+| TrialPage | 通过 readAnswers 和 rankPets 派生 Top 1 | 缺有效答案回问卷；按 Top 1 取卡，拒绝用任意 URL 参数指定其他类型。入口来自结果页首卡或详情页，两者指向同一 Top 1，详情页那处由 A 按 rankPets 结果决定是否渲染按钮，C 的派生逻辑不变 |
 
 目录展示字段的具体键名由 B 在 18 日给 A 一份真实样例及对照。页面读取数据、纯函数计算、组件渲染三步分开。A 给 C 留好导出接口，C 的 PR 合并后 A 再接入路由，避免主分支引用尚不存在的模块。
 
 ## 4. 六题怎样变成三个有理由的推荐
 
 以下权重与量表映射是团队起始设计。18 日 B 需在原表标明高分含义后才落代码。若原表已经给出某选项对宠物的 **契合分**，直接取原分，不再计算距离。若给的是 **属性档位**，在读取层依下表换算为 1–5 契合分。原表值一直保留。
+
+**读取层档位下限取 1。** 原表把乌龟、金鱼、守宫的掉毛和叫声记作 0，含义是「完全没有」。距离型公式 `5 − abs(偏好 − 属性档)` 在 0 上会让最安静的三种永远拿不到满分（用户选最安静档得 1 时只能算出 4 分），结论反向。故换算前把属性档 clamp 到 1–5，0 按 1 算；`pets.json` 仍存原值 0，详情页展示照旧读原值。受影响的只有叫声一维，其余维度原表最小值为 1，clamp 是空操作。B 在量表方向表里注明这条。
 
 | 题／权重 | 原表对应项 | 算法 |
 |---|---|---|

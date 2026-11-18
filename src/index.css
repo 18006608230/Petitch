@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+  --color-warm-50: #fff8f0;
+  --color-warm-100: #ffeedd;
+  --color-warm-200: #ffd9b3;
+  --color-warm-300: #ffb877;
+  --color-warm-500: #f08a3c;
+  --color-warm-600: #d9701f;
+  --color-warm-700: #a85317;
+  --color-ink: #3a2a1d;
+  --color-ink-soft: #7a6553;
+  --radius-card: 1.5rem;
+}
+
+html {
+  background-color: var(--color-warm-50);
+  color: var(--color-ink);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--color-warm-600);
+  outline-offset: 2px;
+}

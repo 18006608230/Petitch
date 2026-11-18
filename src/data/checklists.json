@@ -1,0 +1,102 @@
+{
+  "$comment": "数据源：pet-data-table.md §4。原表标题写「每种 5–6 项」，但狗和猫实际各 7 项、金鱼 5 项、其余 6 项，共 73 项。架构 §1/§3 允许 5–7 项，故按原表条目全量保留，未删减。原表未按食物/住处/清洁/医疗/玩具分组标注，此处不臆造分类。",
+  "byPet": {
+    "dog": [
+      { "id": "cl-dog-1", "label": "狗粮" },
+      { "id": "cl-dog-2", "label": "食盆水盆" },
+      { "id": "cl-dog-3", "label": "牵引绳" },
+      { "id": "cl-dog-4", "label": "狗窝 / 笼子" },
+      { "id": "cl-dog-5", "label": "拾便袋" },
+      { "id": "cl-dog-6", "label": "疫苗驱虫" },
+      { "id": "cl-dog-7", "label": "磨牙玩具" }
+    ],
+    "cat": [
+      { "id": "cl-cat-1", "label": "猫粮" },
+      { "id": "cl-cat-2", "label": "猫砂 + 猫砂盆" },
+      { "id": "cl-cat-3", "label": "猫抓板" },
+      { "id": "cl-cat-4", "label": "猫窝" },
+      { "id": "cl-cat-5", "label": "化毛膏" },
+      { "id": "cl-cat-6", "label": "疫苗驱虫" },
+      { "id": "cl-cat-7", "label": "逗猫棒" }
+    ],
+    "rabbit": [
+      { "id": "cl-rabbit-1", "label": "提摩西草" },
+      { "id": "cl-rabbit-2", "label": "兔粮" },
+      { "id": "cl-rabbit-3", "label": "兔笼 / 围栏" },
+      { "id": "cl-rabbit-4", "label": "磨牙木" },
+      { "id": "cl-rabbit-5", "label": "水壶" },
+      { "id": "cl-rabbit-6", "label": "指甲剪" }
+    ],
+    "hamster": [
+      { "id": "cl-hamster-1", "label": "仓鼠粮" },
+      { "id": "cl-hamster-2", "label": "笼子 + 跑轮" },
+      { "id": "cl-hamster-3", "label": "垫料" },
+      { "id": "cl-hamster-4", "label": "食盆水壶" },
+      { "id": "cl-hamster-5", "label": "磨牙石" },
+      { "id": "cl-hamster-6", "label": "躲避屋" }
+    ],
+    "parrot": [
+      { "id": "cl-parrot-1", "label": "鹦鹉粮" },
+      { "id": "cl-parrot-2", "label": "鸟笼" },
+      { "id": "cl-parrot-3", "label": "站架" },
+      { "id": "cl-parrot-4", "label": "食水罐" },
+      { "id": "cl-parrot-5", "label": "玩具（啃咬类）" },
+      { "id": "cl-parrot-6", "label": "指甲剪" }
+    ],
+    "turtle": [
+      { "id": "cl-turtle-1", "label": "龟缸 + 过滤" },
+      { "id": "cl-turtle-2", "label": "晒台" },
+      { "id": "cl-turtle-3", "label": "加热棒" },
+      { "id": "cl-turtle-4", "label": "龟粮" },
+      { "id": "cl-turtle-5", "label": "水质测试" },
+      { "id": "cl-turtle-6", "label": "UV 灯" }
+    ],
+    "chinchilla": [
+      { "id": "cl-chinchilla-1", "label": "龙猫粮 + 提摩西草" },
+      { "id": "cl-chinchilla-2", "label": "龙猫笼" },
+      { "id": "cl-chinchilla-3", "label": "火山灰浴盆" },
+      { "id": "cl-chinchilla-4", "label": "食盆水壶" },
+      { "id": "cl-chinchilla-5", "label": "磨牙木" },
+      { "id": "cl-chinchilla-6", "label": "空调 / 凉爽环境" }
+    ],
+    "hedgehog": [
+      { "id": "cl-hedgehog-1", "label": "刺猬粮" },
+      { "id": "cl-hedgehog-2", "label": "笼子 + 跑轮" },
+      { "id": "cl-hedgehog-3", "label": "保暖垫" },
+      { "id": "cl-hedgehog-4", "label": "食盆水壶" },
+      { "id": "cl-hedgehog-5", "label": "躲避屋" },
+      { "id": "cl-hedgehog-6", "label": "指甲剪" }
+    ],
+    "goldfish": [
+      { "id": "cl-goldfish-1", "label": "鱼缸 + 过滤" },
+      { "id": "cl-goldfish-2", "label": "鱼食" },
+      { "id": "cl-goldfish-3", "label": "水质测试" },
+      { "id": "cl-goldfish-4", "label": "换水工具" },
+      { "id": "cl-goldfish-5", "label": "水草 / 躲避" }
+    ],
+    "gecko": [
+      { "id": "cl-gecko-1", "label": "饲养盒" },
+      { "id": "cl-gecko-2", "label": "加热垫" },
+      { "id": "cl-gecko-3", "label": "食盆水盆" },
+      { "id": "cl-gecko-4", "label": "躲避屋" },
+      { "id": "cl-gecko-5", "label": "钙粉" },
+      { "id": "cl-gecko-6", "label": "活食（面包虫 / 蟋蟀）" }
+    ],
+    "guinea-pig": [
+      { "id": "cl-guinea-pig-1", "label": "提摩西草" },
+      { "id": "cl-guinea-pig-2", "label": "荷兰猪粮" },
+      { "id": "cl-guinea-pig-3", "label": "笼子" },
+      { "id": "cl-guinea-pig-4", "label": "食盆水壶" },
+      { "id": "cl-guinea-pig-5", "label": "维 C 补充" },
+      { "id": "cl-guinea-pig-6", "label": "指甲剪" }
+    ],
+    "ferret": [
+      { "id": "cl-ferret-1", "label": "雪貂粮" },
+      { "id": "cl-ferret-2", "label": "笼子" },
+      { "id": "cl-ferret-3", "label": "牵引绳" },
+      { "id": "cl-ferret-4", "label": "食盆水盆" },
+      { "id": "cl-ferret-5", "label": "吊床" },
+      { "id": "cl-ferret-6", "label": "疫苗驱虫" }
+    ]
+  }
+}
