@@ -31,7 +31,7 @@ export default function QuizPage() {
   if (step >= questions.length) {
     return (
       <section className="flex flex-col gap-4 pt-6">
-        <h2 className="text-xl font-semibold text-ink">六题答完了</h2>
+        <h2 className="text-xl font-semibold text-ink">{questions.length} 题答完了</h2>
         <p className="text-base leading-relaxed text-ink-soft">
           匹配结果页由 rankPets 提供，接入后这里直接展示 Top 3。
         </p>

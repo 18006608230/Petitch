@@ -6,6 +6,32 @@ const validPairs = new Map(
   questions.map((question) => [question.id, new Set(question.options.map((option) => option.id))]),
 )
 
+const scoreByOption = new Map(
+  questions.map((question) => [
+    question.id,
+    new Map(
+      question.options
+        .filter((option) => option.score !== undefined)
+        .map((option) => [option.id, option.score]),
+    ),
+  ]),
+)
+
+// 架构 §3 的答案字典：键是题目 id，值是选项对应的 1–5 档。
+// 只有 questions.js 里填了 score 的题会出现在字典中；原六题的映射等 B 的对照表，填完自动补齐，这里不用改。
+export function toAnswerScores(answers) {
+  const scores = {}
+  for (const [questionId, optionId] of Object.entries(answers ?? {})) {
+    const score = scoreByOption.get(questionId)?.get(optionId)
+    if (score !== undefined) scores[questionId] = score
+  }
+  return scores
+}
+
+export function readAnswerScores() {
+  return toAnswerScores(readAnswers())
+}
+
 function isAnswerSet(answers) {
   return (
     answers !== null &&

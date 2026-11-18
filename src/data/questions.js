@@ -1,6 +1,7 @@
-// 六题配置。题序与题干来自架构 §1，选项文案按总方案 §4.3「每题 3–4 个选项」拟稿。
-// 待核：选项到 1–5 档的映射原表和架构都未给出，match.js 落地前必须由 B 补齐，本文件只交付 §3 接口表的 id / title / options 形状。
-// 本文件按架构 §2 属 B，A 仅为让 npm run dev 跑通而建立。
+// 八题配置。题序与题干来自架构 §1，选项文案按总方案 §4.3「每题 3–4 个选项」拟稿。
+// 待核：原六题选项到 1–5 档的映射由 B 的字段对照表补齐，本文件只在架构已明确给出档位的地方填 score（目前是掉毛、粘人两题）。
+// 预算题按 2026-11-18 定版改成与五档换算规则一一对齐的五个选项，档位仍留给 B 填（band 序号即档值，1–5）。
+// 本文件按架构 §2 属 B，A 仅为让 npm run dev 跑通而建立，并按定版追加第七、八题。
 
 export const questions = [
   {
@@ -46,8 +47,9 @@ export const questions = [
     title: '每月能接受的花费',
     options: [
       { id: 'lt-100', label: '¥100 以内' },
-      { id: '100-300', label: '¥100–300' },
-      { id: '300-600', label: '¥300–600' },
+      { id: 'lt-200', label: '¥200 以内' },
+      { id: 'lt-400', label: '¥400 以内' },
+      { id: 'lt-600', label: '¥600 以内' },
       { id: 'gt-600', label: '¥600 以上' },
     ],
   },
@@ -59,6 +61,24 @@ export const questions = [
       { id: 'lean-quiet', label: '偏安静' },
       { id: 'lean-active', label: '偏活泼' },
       { id: 'very-active', label: '热闹点好' },
+    ],
+  },
+  {
+    id: 'shedding',
+    title: '你能接受家里到处是毛吗',
+    options: [
+      { id: 'no-hair', label: '一点毛都不能有', score: 1 },
+      { id: 'some-hair', label: '有点毛能接受，别太多', score: 3 },
+      { id: 'any-hair', label: '掉毛无所谓', score: 5 },
+    ],
+  },
+  {
+    id: 'clinginess',
+    title: '你希望宠物多粘人',
+    options: [
+      { id: 'independent', label: '独立一点好，别总粘着我', score: 1 },
+      { id: 'moderate', label: '适中，偶尔粘一下', score: 3 },
+      { id: 'very-clingy', label: '越粘人越好', score: 5 },
     ],
   },
 ]
