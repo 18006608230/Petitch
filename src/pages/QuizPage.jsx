@@ -1,8 +1,12 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { questions } from '../data/questions.js'
 import { clearAnswers, readAnswers, saveAnswers } from '../logic/quizSession.js'
 import ProgressBar from '../components/ProgressBar.jsx'
 import ChoiceGroup from '../components/ChoiceGroup.jsx'
+
+// 两次推进之间至少要隔这么久：快速双击的第二个 click 会落在下一题同位置的按钮上，
+// 不拦住就会答完一题、跳过下一题。返回上一题时清零，所以退回重选不受影响。
+const ADVANCE_COOLDOWN = 400
 
 export default function QuizPage() {
   const [answers, setAnswers] = useState(readAnswers)
@@ -10,19 +14,30 @@ export default function QuizPage() {
     const answered = questions.findIndex((question) => answers[question.id] === undefined)
     return answered === -1 ? questions.length : answered
   })
+  const lastAdvanceAt = useRef(0)
 
   function choose(optionId) {
     const question = questions[step]
-    // 同一题重复点击只认第一次，避免快速双击跳过下一题。
-    if (answers[question.id] === optionId) return
+    const now = Date.now()
+    if (now - lastAdvanceAt.current < ADVANCE_COOLDOWN) return
 
-    const next = { ...answers, [question.id]: optionId }
-    setAnswers(next)
-    saveAnswers(next)
+    // 退回后重新点已选中的那一项，答案不变但仍要推进到下一题。
+    if (answers[question.id] !== optionId) {
+      const next = { ...answers, [question.id]: optionId }
+      setAnswers(next)
+      saveAnswers(next)
+    }
+    lastAdvanceAt.current = now
     setStep((current) => Math.min(current + 1, questions.length))
   }
 
+  function goBack() {
+    lastAdvanceAt.current = 0
+    setStep((current) => Math.max(current - 1, 0))
+  }
+
   function retake() {
+    lastAdvanceAt.current = 0
     clearAnswers()
     setAnswers({})
     setStep(0)
@@ -59,7 +74,7 @@ export default function QuizPage() {
       />
       <button
         type="button"
-        onClick={() => setStep((current) => Math.max(current - 1, 0))}
+        onClick={goBack}
         disabled={step === 0}
         className="self-start text-sm text-ink-soft disabled:opacity-40"
       >
