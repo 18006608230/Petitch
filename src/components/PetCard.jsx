@@ -25,7 +25,14 @@ export default function PetCard({ pet, onOpen }) {
       <span className="text-sm leading-relaxed text-ink-soft">{pet.personality}</span>
       <span className="text-sm text-ink-soft">
         饲养难度
-        <span className="ml-1 font-medium text-warm-600">{pet.difficulty}/5</span>
+        <span
+          role="img"
+          aria-label={`${pet.difficulty} / 5`}
+          className="ml-1 tracking-wider text-warm-500"
+        >
+          {'★'.repeat(pet.difficulty)}
+          <span className="text-warm-200">{'★'.repeat(5 - pet.difficulty)}</span>
+        </span>
       </span>
     </>
   )
