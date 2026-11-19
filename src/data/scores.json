@@ -1,0 +1,27 @@
+{
+  "$comment": "数据源：pet-data-table.md §2.2（2026-11-18 第一版）。12 种宠物 × 8 个打分维度，取值按原表直译，未做换算，顺序同原表。乌龟、金鱼、守宫的掉毛与叫声保留原值 0（含义是「完全没有」），换算契合分时由 src/logic/match.js 在读取层对副本 clamp 到 1，本文件不改成 1。与 pets.json 的分工：pets.json 存原表 §1 的展示资料，本文件存原表 §2.2 的打分档位，两者由 src/data/catalog.js 合并后对外提供，页面和 match.js 都不直接读这两个 JSON。",
+  "dimensions": [
+    "difficulty",
+    "spaceNeed",
+    "companionshipNeed",
+    "activity",
+    "shedding",
+    "noise",
+    "clinginess",
+    "allergyFriendly"
+  ],
+  "pets": {
+    "dog": { "difficulty": 3, "spaceNeed": 4, "companionshipNeed": 5, "activity": 5, "shedding": 4, "noise": 3, "clinginess": 5, "allergyFriendly": 2 },
+    "cat": { "difficulty": 2, "spaceNeed": 3, "companionshipNeed": 2, "activity": 2, "shedding": 4, "noise": 1, "clinginess": 3, "allergyFriendly": 2 },
+    "rabbit": { "difficulty": 3, "spaceNeed": 3, "companionshipNeed": 3, "activity": 3, "shedding": 3, "noise": 1, "clinginess": 2, "allergyFriendly": 3 },
+    "hamster": { "difficulty": 1, "spaceNeed": 1, "companionshipNeed": 1, "activity": 3, "shedding": 2, "noise": 1, "clinginess": 1, "allergyFriendly": 4 },
+    "parrot": { "difficulty": 3, "spaceNeed": 3, "companionshipNeed": 4, "activity": 3, "shedding": 1, "noise": 5, "clinginess": 4, "allergyFriendly": 3 },
+    "turtle": { "difficulty": 1, "spaceNeed": 2, "companionshipNeed": 1, "activity": 1, "shedding": 0, "noise": 0, "clinginess": 1, "allergyFriendly": 5 },
+    "chinchilla": { "difficulty": 4, "spaceNeed": 3, "companionshipNeed": 2, "activity": 3, "shedding": 3, "noise": 1, "clinginess": 3, "allergyFriendly": 3 },
+    "hedgehog": { "difficulty": 3, "spaceNeed": 1, "companionshipNeed": 1, "activity": 3, "shedding": 1, "noise": 1, "clinginess": 2, "allergyFriendly": 4 },
+    "goldfish": { "difficulty": 2, "spaceNeed": 1, "companionshipNeed": 1, "activity": 1, "shedding": 0, "noise": 0, "clinginess": 1, "allergyFriendly": 5 },
+    "gecko": { "difficulty": 1, "spaceNeed": 1, "companionshipNeed": 1, "activity": 1, "shedding": 0, "noise": 0, "clinginess": 1, "allergyFriendly": 5 },
+    "guinea-pig": { "difficulty": 2, "spaceNeed": 3, "companionshipNeed": 3, "activity": 3, "shedding": 3, "noise": 3, "clinginess": 3, "allergyFriendly": 2 },
+    "ferret": { "difficulty": 5, "spaceNeed": 4, "companionshipNeed": 5, "activity": 5, "shedding": 3, "noise": 1, "clinginess": 4, "allergyFriendly": 2 }
+  }
+}
