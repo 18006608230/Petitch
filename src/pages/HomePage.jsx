@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom'
+import { motion } from 'motion/react'
 import PetCard from '../components/PetCard.jsx'
 import { getPet } from '../data/catalog.js'
+import { useMotionTokens } from '../motion.js'
 import homeHero from '../assets/home-hero.jpg'
 
 // 架构 §1 只要求首页固定三种，未指定哪三种；本次取狗、猫、兔，覆盖时间充裕、上班族、想安静不出门三类人。
@@ -9,23 +11,25 @@ const FEATURED_IDS = ['dog', 'cat', 'rabbit']
 
 export default function HomePage() {
   const navigate = useNavigate()
+  const m = useMotionTokens()
   const featured = FEATURED_IDS.map(getPet).filter(Boolean)
 
   return (
     <div className="flex flex-col gap-7">
       <section className="flex flex-col gap-4 pt-2">
-        <img
+        <motion.img
           src={homeHero}
           width={400}
           height={400}
           alt="一只猫和一只狗并排趴在边缘上，上方一颗橙色爱心"
           className="h-36 w-36 rounded-[25%] object-cover"
+          {...m.entrance(12)}
         />
-        <h1 className="text-2xl leading-snug font-semibold text-ink">
+        <motion.h1 className="text-2xl leading-snug font-semibold text-ink" {...m.entrance(12)}>
           先找到适合你的宠物类型，
           <br />
           再决定要不要领养
-        </h1>
+        </motion.h1>
         <p className="text-base leading-relaxed text-ink-soft">
           一分钟问卷帮你想清楚该养哪种，试养模拟验证你受不受得了它烦人的那部分。
         </p>
@@ -41,8 +45,8 @@ export default function HomePage() {
       <section className="flex flex-col gap-3">
         <h2 className="text-lg font-semibold text-ink">热门类型</h2>
         <div className="grid grid-cols-1 gap-3">
-          {featured.map((pet) => (
-            <PetCard key={pet.id} pet={pet} />
+          {featured.map((pet, i) => (
+            <PetCard key={pet.id} pet={pet} index={i} />
           ))}
         </div>
       </section>

@@ -1,5 +1,8 @@
+import { motion } from 'motion/react'
+import { useMotionTokens } from '../motion.js'
+
 export default function ProgressBar({ index, total }) {
-  const percent = Math.round(((index + 1) / total) * 100)
+  const m = useMotionTokens()
 
   return (
     <div className="flex flex-col gap-2">
@@ -14,7 +17,11 @@ export default function ProgressBar({ index, total }) {
         aria-valuemax={total}
         aria-label={`答题进度，第 ${index + 1} 题，共 ${total} 题`}
       >
-        <div className="h-full rounded-full bg-warm-500 transition-all" style={{ width: `${percent}%` }} />
+        {/* 条体始终是满宽，进度靠 scaleX 推，不用 transition-all 动 width。 */}
+        <motion.div
+          className="h-full w-full origin-left rounded-full bg-warm-500"
+          {...m.progress((index + 1) / total)}
+        />
       </div>
     </div>
   )

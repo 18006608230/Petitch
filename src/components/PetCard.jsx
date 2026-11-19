@@ -1,7 +1,12 @@
+import { useState } from 'react'
+import { motion } from 'motion/react'
 import { getPetIcon } from '../assets/petIcons.js'
+import { STAGGER, useMotionTokens } from '../motion.js'
 
-export default function PetCard({ pet, onOpen }) {
+export default function PetCard({ pet, onOpen, index = 0 }) {
   const icon = getPetIcon(pet.id)
+  const m = useMotionTokens()
+  const [hovered, setHovered] = useState(false)
 
   const body = (
     <>
@@ -37,16 +42,48 @@ export default function PetCard({ pet, onOpen }) {
     </>
   )
 
-  const shell = 'flex w-full flex-col gap-2 rounded-card border border-warm-100 bg-white p-4 text-left shadow-sm'
+  const shell =
+    'relative flex w-full flex-col gap-2 rounded-card border border-warm-100 bg-white p-4 text-left shadow-sm'
 
-  // 详情页 11/21 才落地，没有回调时只作展示，避免点进去是死链接。
+  // 阴影单独一层做 opacity 淡入，卡片本体只动 transform，这样动画不碰 box-shadow 和几何属性。
+  const shadow = (
+    <motion.span
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 rounded-card opacity-0 shadow-lg"
+      {...m.hoverShadow(hovered)}
+    />
+  )
+
+  const track = m.reduce
+    ? {}
+    : { onHoverStart: () => setHovered(true), onHoverEnd: () => setHovered(false) }
+
+  const content = <span className="relative flex flex-col gap-2">{body}</span>
+
+  const entrance = m.entrance(12, index * STAGGER)
+
+  // 详情页还没接，没有回调时只作展示；不挂 whileTap，免得静态卡片看起来像能按。
   if (!onOpen) {
-    return <article className={shell}>{body}</article>
+    return (
+      <motion.article className={shell} {...track} {...entrance} {...m.lift()}>
+        {shadow}
+        {content}
+      </motion.article>
+    )
   }
 
   return (
-    <button type="button" onClick={() => onOpen(pet.id)} className={shell}>
-      {body}
-    </button>
+    <motion.button
+      type="button"
+      onClick={() => onOpen(pet.id)}
+      className={shell}
+      {...track}
+      {...entrance}
+      {...m.lift()}
+      {...m.press()}
+    >
+      {shadow}
+      {content}
+    </motion.button>
   )
 }
