@@ -1,4 +1,5 @@
 import petsData from './pets.json'
+import scoresData from './scores.json'
 import scenariosData from './scenarios.json'
 import checklistsData from './checklists.json'
 
@@ -15,7 +16,13 @@ export function costTierOf(monthlyCost) {
   return index === -1 ? 5 : index + 1
 }
 
-const pets = petsData.pets.map((pet) => ({ ...pet, costTier: costTierOf(pet.monthlyCost) }))
+// 原表 §1 的展示资料在 pets.json，§2.2 的 8 个打分档位在 scores.json，在这里合成一份。
+// 页面和 match.js 都只认 listPets()/getPet()，不直接读这两个 JSON，同一个字段只会有一处来源。
+const pets = petsData.pets.map((pet) => ({
+  ...pet,
+  ...(scoresData.pets[pet.id] ?? {}),
+  costTier: costTierOf(pet.monthlyCost),
+}))
 
 export function listPets() {
   return pets
