@@ -3,6 +3,7 @@ import { MotionConfig } from 'motion/react'
 import AppShell from './components/AppShell.jsx'
 import HomePage from './pages/HomePage.jsx'
 import QuizPage from './pages/QuizPage.jsx'
+import ResultPage from './pages/ResultPage.jsx'
 
 export default function App() {
   return (
@@ -14,7 +15,8 @@ export default function App() {
           <Route element={<AppShell />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/quiz" element={<QuizPage />} />
-            {/* 结果、详情、试养、品种、指南、清单按架构 §1 尚未实现，此处不注册路由，避免留下死链接。 */}
+            <Route path="/result" element={<ResultPage />} />
+            {/* 详情、试养、品种、指南、清单按架构 §1 尚未实现，此处不注册路由，避免留下死链接。 */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>
