@@ -3,8 +3,9 @@ import PetCard from '../components/PetCard.jsx'
 import { getPet } from '../data/catalog.js'
 import homeHero from '../assets/home-hero.jpg'
 
-// 架构 §1 只要求首页固定三种，未指定哪三种；此处取狗、猫、仓鼠，覆盖时间充裕、上班族、宿舍三类目标用户。
-const FEATURED_IDS = ['dog', 'cat', 'hamster']
+// 架构 §1 只要求首页固定三种，未指定哪三种；本次取狗、猫、兔，覆盖时间充裕、上班族、想安静不出门三类人。
+// 卡片只展示不跳转：详情页 11/21 才落地，届时把 onOpen 传进 PetCard 即可，现在不注册路由避免死链接。
+const FEATURED_IDS = ['dog', 'cat', 'rabbit']
 
 export default function HomePage() {
   const navigate = useNavigate()
