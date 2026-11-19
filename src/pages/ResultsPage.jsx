@@ -4,7 +4,7 @@ import { questions } from '../data/questions.js'
 import { clearAnswers, readAnswers } from '../logic/quizSession.js'
 import { useMotionTokens } from '../motion.js'
 
-export default function ResultPage() {
+export default function ResultsPage() {
   const navigate = useNavigate()
   const m = useMotionTokens()
   const answered = Object.keys(readAnswers()).length
