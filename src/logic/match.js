@@ -1,4 +1,5 @@
 import { listPets } from '../data/catalog.js'
+import { listBreeds } from './breedCatalog.js'
 
 // 架构 §4 定版的权重，合计 14；过敏跳过时有效权重和取 11。
 const WEIGHTS = {
@@ -144,4 +145,28 @@ export function rankPets(answers) {
     percent: Math.round((sum / (5 * weightTotal)) * 100),
     reason: reasonOf(activeIds, fits),
   }))
+}
+
+// 架构 §4.1：品种级二次匹配。权重和契合分沿用 §4，属性档从类型表换成品种表；
+// 排序、取整与理由口径和 rankPets 一致，同分按 breeds.json 里的行序。无品种数据或答案无效时返回空数组。
+export function rankBreeds(typeId, answers) {
+  const breeds = listBreeds(typeId)
+  if (breeds.length === 0 || !isAnswerScores(answers)) return []
+
+  const activeIds = QUESTION_ORDER.filter((id) => id !== 'allergy' || answers.allergy !== undefined)
+  const weightTotal = activeIds.reduce((sum, id) => sum + WEIGHTS[id], 0)
+
+  return breeds
+    .map((breed, index) => {
+      const fits = fitsOf(breed, answers)
+      const sum = activeIds.reduce((total, id) => total + fits[id] * WEIGHTS[id], 0)
+      return { breed, index, fits, sum, ratio: sum / weightTotal }
+    })
+    .sort((a, b) => b.ratio - a.ratio || a.index - b.index)
+    .map(({ breed, fits, sum }) => ({
+      breedId: breed.id,
+      percent: Math.round((sum / (5 * weightTotal)) * 100),
+      reason: reasonOf(activeIds, fits),
+      feature: breed.personality,
+    }))
 }
