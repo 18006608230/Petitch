@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion } from 'motion/react'
+import { useNavigate } from 'react-router-dom'
 import { questions } from '../data/questions.js'
 import { clearAnswers, readAnswers, saveAnswers } from '../logic/quizSession.js'
 import ProgressBar from '../components/ProgressBar.jsx'
@@ -11,6 +12,7 @@ import { useMotionTokens } from '../motion.js'
 const ADVANCE_COOLDOWN = 400
 
 export default function QuizPage() {
+  const navigate = useNavigate()
   const m = useMotionTokens()
   const [answers, setAnswers] = useState(readAnswers)
   const [step, setStep] = useState(() => {
@@ -51,8 +53,15 @@ export default function QuizPage() {
       <motion.section className="flex flex-col gap-4 pt-6" {...m.entrance(8)}>
         <h2 className="text-xl font-semibold text-ink">{questions.length} 题答完了</h2>
         <p className="text-base leading-relaxed text-ink-soft">
-          匹配结果页由 rankPets 提供，接入后这里直接展示 Top 3。
+          答案存在这一标签页里，排名按你的选择算；没答完的题不会参与。
         </p>
+        <button
+          type="button"
+          onClick={() => navigate('/results')}
+          className="w-full rounded-card bg-warm-500 px-6 py-4 text-lg font-semibold text-white shadow-md active:bg-warm-600"
+        >
+          看看结果
+        </button>
         <button
           type="button"
           onClick={retake}
