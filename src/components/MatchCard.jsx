@@ -1,4 +1,5 @@
 import { motion } from 'motion/react'
+import BreedButton from './BreedButton.jsx'
 import { getPetIcon } from '../assets/petIcons.js'
 import { STAGGER, useMotionTokens } from '../motion.js'
 
@@ -36,6 +37,7 @@ export default function MatchCard({ pet, percent, reason, rank, index = 0 }) {
       <span className="flex min-w-0 flex-col gap-1">
         <span className="text-lg font-semibold text-ink">{pet.name}</span>
         <span className="text-sm leading-relaxed text-ink-soft">{reason}</span>
+        <BreedButton typeId={pet.id} />
       </span>
       <span
         aria-label={`匹配度 ${percent}%`}
