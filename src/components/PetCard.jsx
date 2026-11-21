@@ -62,7 +62,7 @@ export default function PetCard({ pet, onOpen, index = 0 }) {
 
   const entrance = m.entrance(12, index * STAGGER)
 
-  // 详情页还没接，没有回调时只作展示；不挂 whileTap，免得静态卡片看起来像能按。
+  // 没有回调时只作展示，且不挂 whileTap；首页热门卡与展开的九张都传 onOpen，点卡进 #/pets/:id。
   if (!onOpen) {
     return (
       <motion.article className={shell} {...track} {...entrance} {...m.lift()}>
