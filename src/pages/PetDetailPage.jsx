@@ -5,7 +5,7 @@ import { getPet } from '../data/catalog.js'
 
 // 架构 §1 的 #/pets/:id：顶部难度、月花费、寿命，下方按 §1 列出的顺序展示其余十项，值全部读 pets.json 原值。
 // 收藏（C 的 FavoriteButton）、「进入清单」和「试养一下」本次不挂：前两者模块还没落地，
-// 试养要按本轮 Top 1 判断而 rankPets 还没到，现在挂上就是死链接。
+// 试养页（C）也还没进 main，现在挂上就是死链接。
 const LEVELS = [
   { key: 'spaceNeed', label: '空间需求' },
   { key: 'companionshipNeed', label: '陪伴需求' },
