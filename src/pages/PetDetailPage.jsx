@@ -1,11 +1,12 @@
 import { Link, useParams } from 'react-router-dom'
 import BreedButton from '../components/BreedButton.jsx'
+import FavoriteButton from '../features/saved/FavoriteButton.jsx'
 import { getPetIcon } from '../assets/petIcons.js'
 import { getPet } from '../data/catalog.js'
 
 // 架构 §1 的 #/pets/:id：顶部难度、月花费、寿命，下方按 §1 列出的顺序展示其余十项，值全部读 pets.json 原值。
-// 收藏（C 的 FavoriteButton）、「进入清单」和「试养一下」本次不挂：前两者模块还没落地，
-// 试养页（C）还没进 main，现在挂上就是死链接。
+// 收藏挂 C 的 FavoriteButton（自己读写 petitch.favorites.v1）；「进入清单」和「试养一下」本次仍不挂：
+// 清单页还没落地、试养页（C）还没进 main，现在挂上就是死链接。
 const LEVELS = [
   { key: 'spaceNeed', label: '空间需求' },
   { key: 'companionshipNeed', label: '陪伴需求' },
@@ -116,7 +117,10 @@ export default function PetDetailPage() {
         </div>
       </section>
 
-      <BreedButton typeId={pet.id} />
+      <div className="flex flex-wrap items-center gap-3">
+        <FavoriteButton petId={pet.id} />
+        <BreedButton typeId={pet.id} />
+      </div>
 
       <p className="text-sm leading-relaxed text-ink-soft">
         量表统一 1–5 分：空间、陪伴、运动量、掉毛、叫声、粘人是 5 = 需求或程度最高；过敏友好度 5 =
