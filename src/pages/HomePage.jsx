@@ -49,6 +49,13 @@ export default function HomePage() {
         >
           开始匹配
         </button>
+        <button
+          type="button"
+          onClick={() => navigate('/guide')}
+          className="w-full rounded-card border border-warm-200 bg-white px-6 py-3 text-base font-medium text-warm-700 active:bg-warm-50"
+        >
+          领养指南
+        </button>
       </section>
 
       <section className="flex flex-col gap-3">
