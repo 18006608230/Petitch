@@ -5,8 +5,8 @@ import { getPetIcon } from '../assets/petIcons.js'
 import { getPet } from '../data/catalog.js'
 
 // 架构 §1 的 #/pets/:id：顶部难度、月花费、寿命，下方按 §1 列出的顺序展示其余十项，值全部读 pets.json 原值。
-// 收藏挂 C 的 FavoriteButton（自己读写 petitch.favorites.v1）；「进入清单」和「试养一下」本次仍不挂：
-// 清单页还没落地、试养页（C）还没进 main，现在挂上就是死链接。
+// 收藏挂 C 的 FavoriteButton，用品清单挂到 #/checklist/:id；「试养一下」本次仍不挂：
+// 试养页（C）还没进 main，现在挂上就是死链接。
 const LEVELS = [
   { key: 'spaceNeed', label: '空间需求' },
   { key: 'companionshipNeed', label: '陪伴需求' },
@@ -120,6 +120,12 @@ export default function PetDetailPage() {
       <div className="flex flex-wrap items-center gap-3">
         <FavoriteButton petId={pet.id} />
         <BreedButton typeId={pet.id} />
+        <Link
+          to={`/checklist/${pet.id}`}
+          className="self-start rounded-full border border-warm-200 bg-white px-4 py-2 text-sm font-medium text-warm-700"
+        >
+          用品清单
+        </Link>
       </div>
 
       <p className="text-sm leading-relaxed text-ink-soft">
