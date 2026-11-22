@@ -3,6 +3,7 @@ import { MotionConfig } from 'motion/react'
 import AppShell from './components/AppShell.jsx'
 import BreedPage from './pages/BreedPage.jsx'
 import HomePage from './pages/HomePage.jsx'
+import PetDetailPage from './pages/PetDetailPage.jsx'
 import QuizPage from './pages/QuizPage.jsx'
 import ResultsPage from './pages/ResultsPage.jsx'
 
@@ -18,7 +19,8 @@ export default function App() {
             <Route path="/quiz" element={<QuizPage />} />
             <Route path="/results" element={<ResultsPage />} />
             <Route path="/breeds/:typeId" element={<BreedPage />} />
-            {/* 详情、试养、指南、清单按架构 §1 尚未实现，此处不注册路由，避免留下死链接。 */}
+            <Route path="/pets/:id" element={<PetDetailPage />} />
+            {/* 试养、指南、清单按架构 §1 尚未实现，此处不注册路由，避免留下死链接。 */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>
