@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage.jsx'
 import PetDetailPage from './pages/PetDetailPage.jsx'
 import QuizPage from './pages/QuizPage.jsx'
 import ResultsPage from './pages/ResultsPage.jsx'
+import TrialPage from './features/trial/TrialPage.jsx'
 
 export default function App() {
   return (
@@ -24,7 +25,7 @@ export default function App() {
             <Route path="/pets/:id" element={<PetDetailPage />} />
             <Route path="/guide" element={<GuidePage />} />
             <Route path="/checklist/:id" element={<ChecklistPage />} />
-            {/* 试养按架构 §1 尚未实现，此处不注册路由，避免留下死链接。 */}
+            <Route path="/trial" element={<TrialPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>
