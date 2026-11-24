@@ -4,9 +4,11 @@ import {
   DEDUCTIONS,
   TOTAL_SCORE,
   confirmCard,
+  deductionBreakdown,
   deductionOf,
   imageFor,
   scoreOf,
+  verdictOf,
 } from './trialLogic.js'
 
 describe('试养计分', () => {
@@ -60,6 +62,53 @@ describe('按卡标识确认', () => {
     const again = confirmCard(answers, last.id, 'reject')
     expect(again).toEqual(answers)
     expect(scoreOf(again)).toBe(100)
+  })
+})
+
+describe('三档结论', () => {
+  it('低于 60 劝退，60–85 含两端提醒，高于 85 适合', () => {
+    expect(verdictOf(0)).toBe('discourage')
+    expect(verdictOf(55)).toBe('discourage')
+    expect(verdictOf(59)).toBe('discourage')
+    expect(verdictOf(60)).toBe('warn')
+    expect(verdictOf(85)).toBe('warn')
+    expect(verdictOf(86)).toBe('suitable')
+    expect(verdictOf(90)).toBe('suitable')
+    expect(verdictOf(100)).toBe('suitable')
+  })
+
+  it('手测表六组五次选择：分数与结论全部对上', () => {
+    const table = [
+      { picks: ['accept', 'accept', 'accept', 'accept', 'accept'], score: 100, verdict: 'suitable' },
+      { picks: ['tolerate', 'tolerate', 'accept', 'accept', 'accept'], score: 90, verdict: 'suitable' },
+      { picks: ['tolerate', 'tolerate', 'tolerate', 'accept', 'accept'], score: 85, verdict: 'warn' },
+      { picks: ['reject', 'reject', 'accept', 'accept', 'accept'], score: 60, verdict: 'warn' },
+      { picks: ['reject', 'reject', 'tolerate', 'accept', 'accept'], score: 55, verdict: 'discourage' },
+      { picks: ['reject', 'reject', 'reject', 'reject', 'reject'], score: 0, verdict: 'discourage' },
+    ]
+    const scenarios = getScenarios('dog')
+    for (const row of table) {
+      let answers = {}
+      row.picks.forEach((optionId, i) => {
+        answers = confirmCard(answers, scenarios[i].id, optionId)
+      })
+      const score = scoreOf(answers)
+      expect(score).toBe(row.score)
+      expect(verdictOf(score)).toBe(row.verdict)
+    }
+  })
+
+  it('扣分回顾只列真的扣分的卡，并带扣分数', () => {
+    const scenarios = getScenarios('dog')
+    let answers = {}
+    ;['reject', 'reject', 'tolerate', 'accept', 'accept'].forEach((optionId, i) => {
+      answers = confirmCard(answers, scenarios[i].id, optionId)
+    })
+    expect(deductionBreakdown(answers)).toEqual([
+      { scenarioId: 'dog-1', optionId: 'reject', points: 20 },
+      { scenarioId: 'dog-2', optionId: 'reject', points: 20 },
+      { scenarioId: 'dog-3', optionId: 'tolerate', points: 5 },
+    ])
   })
 })
 

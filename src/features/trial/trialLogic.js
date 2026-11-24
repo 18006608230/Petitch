@@ -25,6 +25,20 @@ export function scoreOf(answers) {
   return Math.max(0, TOTAL_SCORE - sum)
 }
 
+// 架构 §5：<60 劝退，60–85 含两端提醒，>85 适合。
+export function verdictOf(score) {
+  if (score < 60) return 'discourage'
+  if (score <= 85) return 'warn'
+  return 'suitable'
+}
+
+// 扣分回顾：只列真的扣了分的卡，附扣分数，供「提醒」档展示。
+export function deductionBreakdown(answers) {
+  return Object.entries(answers)
+    .map(([scenarioId, optionId]) => ({ scenarioId, optionId, points: deductionOf(optionId) }))
+    .filter((entry) => entry.points > 0)
+}
+
 // 按卡标识只记第一次确认：同一张卡再点确认不覆盖、不重复计分。
 export function confirmCard(answers, scenarioId, optionId) {
   if (answers[scenarioId] !== undefined) return answers
