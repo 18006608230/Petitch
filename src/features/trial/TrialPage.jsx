@@ -160,7 +160,7 @@ function TrialRun({ petId }) {
           alt=""
           width={800}
           height={800}
-          className="h-44 w-full rounded-card bg-warm-100 object-cover"
+          className="aspect-square w-full rounded-card bg-warm-100 object-cover"
         />
         <h2 className="text-xl leading-snug font-semibold text-ink">{scenario.text}</h2>
 
