@@ -5,7 +5,7 @@ import { hasBreeds } from '../logic/breedCatalog.js'
 import { STAGGER, useMotionTokens } from '../motion.js'
 
 // 卡片主体是去详情页的 Link；「看看品种」是卡底单独一条 Link，和主体平级，不套链接。
-export default function MatchCard({ pet, percent, reason, rank, index = 0 }) {
+export default function MatchCard({ pet, percent, reason, rank, index = 0, showTrial = false }) {
   const m = useMotionTokens()
   const icon = getPetIcon(pet.id)
 
@@ -50,14 +50,24 @@ export default function MatchCard({ pet, percent, reason, rank, index = 0 }) {
           {percent}%
         </span>
       </Link>
-      {hasBreeds(pet.id) && (
-        <div className="px-4 pb-4">
-          <Link
-            to={`/breeds/${pet.id}`}
-            className="inline-block rounded-full border border-warm-200 bg-white px-4 py-2 text-sm font-medium text-warm-700 active:bg-warm-50"
-          >
-            看看品种
-          </Link>
+      {(showTrial || hasBreeds(pet.id)) && (
+        <div className="flex flex-wrap items-center gap-2 px-4 pb-4">
+          {showTrial && (
+            <Link
+              to="/trial"
+              className="inline-block rounded-full bg-warm-500 px-4 py-2 text-sm font-semibold text-white active:bg-warm-600"
+            >
+              试养一下
+            </Link>
+          )}
+          {hasBreeds(pet.id) && (
+            <Link
+              to={`/breeds/${pet.id}`}
+              className="inline-block rounded-full border border-warm-200 bg-white px-4 py-2 text-sm font-medium text-warm-700 active:bg-warm-50"
+            >
+              看看品种
+            </Link>
+          )}
         </div>
       )}
     </motion.li>
