@@ -1,9 +1,7 @@
 import { useState } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import { motion } from 'motion/react'
 import { getPet, getScenarios } from '../../data/catalog.js'
-import { rankPets } from '../../logic/match.js'
-import { readAnswerScores } from '../../logic/quizSession.js'
 import { useMotionTokens } from '../../motion.js'
 import {
   TOTAL_SCORE,
@@ -15,18 +13,19 @@ import {
   verdictOf,
 } from './trialLogic.js'
 
-// 架构 §3：本轮 Top 1 只能由真实答案派生，不接受 URL 参数指定其他类型；缺有效答案回问卷。
+// 架构 §1：试养按进入时的类型取卡，入口来自结果页三张卡和详情页；地址里的 id 不在 12 种内就回结果页。
 export default function TrialPage() {
-  const [top] = rankPets(readAnswerScores())
-  if (!top) return <Navigate to="/quiz" replace />
-  return <TrialRun key={top.petId} petId={top.petId} />
+  const { petId } = useParams()
+  const pet = getPet(petId)
+  if (!pet) return <Navigate to="/results" replace />
+  return <TrialRun key={pet.id} petId={pet.id} />
 }
 
 function TrialRun({ petId }) {
   const m = useMotionTokens()
   const pet = getPet(petId)
   const scenarios = getScenarios(petId)
-  // 只存在组件内存：刷新试养页从本轮 Top 1 的第一张重新开始（架构 §5）。
+  // 只存在组件内存：刷新试养页从该类型的第一张重新开始（架构 §5）。
   const [answers, setAnswers] = useState({})
   const [selected, setSelected] = useState(null)
 

@@ -54,7 +54,7 @@ export default function MatchCard({ pet, percent, reason, rank, index = 0, showT
         <div className="flex flex-wrap items-center gap-2 px-4 pb-4">
           {showTrial && (
             <Link
-              to="/trial"
+              to={`/trial/${pet.id}`}
               className="inline-block rounded-full bg-warm-500 px-4 py-2 text-sm font-semibold text-white active:bg-warm-600"
             >
               试养一下
