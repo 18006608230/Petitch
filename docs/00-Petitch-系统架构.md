@@ -89,7 +89,7 @@ Vite + React（JavaScript）+ Tailwind + HashRouter。使用组件状态、纯�
 
 | 项 | 约定 |
 |---|---|
-| 数据 | `src/data/breeds.json`（B 维护），11 种类型共 39 个品种，刺猬不出品种。字段沿用 pets 表风格：品种所属类型标识、品种名、各属性档、一句话特点 |
+| 数据 | `src/data/breeds.json`（B 维护），11 种类型共 45 个品种，刺猬不出品种。字段沿用 pets 表风格：品种所属类型标识、品种名、各属性档、一句话特点 |
 | 接口 | `rankBreeds(typeId, answers)` 复用 §4 的同一套权重与契合分公式，把属性档从类型表换成品种表；`hasBreeds(typeId)` 决定入口是否出现 |
 | 入口 | 结果页三张卡与详情页各放一个「看看品种」，均由 `BreedButton` 渲染。是否出现只看数据里有没有该类型的行，代码不写死类型名单 |
 | 数据到货 | 分三批提交，先到先显示。`breedCatalog.js` 用 glob 读文件，B 未落地时读到空数组，入口全部不渲染且构建不报错 |
