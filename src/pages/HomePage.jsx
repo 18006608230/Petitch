@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'motion/react'
 import PetCard from '../components/PetCard.jsx'
 import { getPet, listPets } from '../data/catalog.js'
@@ -49,13 +49,14 @@ export default function HomePage() {
         >
           开始匹配
         </button>
-        <button
-          type="button"
-          onClick={() => navigate('/guide')}
-          className="w-full rounded-card border border-warm-200 bg-white px-6 py-3 text-base font-medium text-warm-700 active:bg-warm-50"
+        <Link
+          to="/guide"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block w-full rounded-card border border-warm-200 bg-white px-6 py-3 text-center text-base font-medium text-warm-700 active:bg-warm-50"
         >
           领养指南
-        </button>
+        </Link>
       </section>
 
       <section className="flex flex-col gap-3">
