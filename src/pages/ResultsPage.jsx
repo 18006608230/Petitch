@@ -59,7 +59,7 @@ export default function ResultsPage() {
             reason={match.reason}
             rank={index + 1}
             index={index}
-            showTrial={index === 0}
+            showTrial
           />
         ))}
       </ol>

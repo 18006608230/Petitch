@@ -25,7 +25,7 @@ export default function App() {
             <Route path="/pets/:id" element={<PetDetailPage />} />
             <Route path="/guide" element={<GuidePage />} />
             <Route path="/checklist/:id" element={<ChecklistPage />} />
-            <Route path="/trial" element={<TrialPage />} />
+            <Route path="/trial/:petId" element={<TrialPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>
