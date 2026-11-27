@@ -78,13 +78,14 @@ export default function GuidePage() {
         </ul>
       </section>
 
-      <button
+      <motion.button
         type="button"
         onClick={() => navigate('/')}
         className="self-start rounded-card border border-warm-200 bg-white px-6 py-3 text-base font-medium text-warm-700 active:bg-warm-50"
+        {...m.press()}
       >
         返回首页
-      </button>
+      </motion.button>
     </motion.section>
   )
 }

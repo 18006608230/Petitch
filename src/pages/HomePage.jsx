@@ -6,6 +6,8 @@ import { getPet, listPets } from '../data/catalog.js'
 import { useMotionTokens } from '../motion.js'
 import homeHero from '../assets/home-hero.jpg'
 
+const MotionLink = motion.create(Link)
+
 // 架构 §1 只要求首页固定三种，未指定哪三种；本次取狗、猫、兔，覆盖时间充裕、上班族、想安静不出门三类人。
 // 点卡进 #/pets/:id 详情：详情页已落地，故传 onOpen；架构 §1 的「点卡看详情」由此兑现。
 const FEATURED_IDS = ['dog', 'cat', 'rabbit']
@@ -42,21 +44,23 @@ export default function HomePage() {
         <p className="text-base leading-relaxed text-ink-soft">
           一分钟问卷帮你想清楚该养哪种，试养模拟验证你受不受得了它烦人的那部分。
         </p>
-        <button
+        <motion.button
           type="button"
           onClick={() => navigate('/quiz')}
           className="mt-1 w-full rounded-card bg-warm-500 px-6 py-4 text-lg font-semibold text-white shadow-md active:bg-warm-600"
+          {...m.press()}
         >
           开始匹配
-        </button>
-        <Link
+        </motion.button>
+        <MotionLink
           to="/guide"
           target="_blank"
           rel="noopener noreferrer"
           className="block w-full rounded-card border border-warm-200 bg-white px-6 py-3 text-center text-base font-medium text-warm-700 active:bg-warm-50"
+          {...m.press()}
         >
           领养指南
-        </Link>
+        </MotionLink>
       </section>
 
       <section className="flex flex-col gap-3">
@@ -74,15 +78,16 @@ export default function HomePage() {
                 <PetCard key={pet.id} pet={pet} onOpen={open} />
               ))}
             </div>
-            <button
+            <motion.button
               type="button"
               onClick={() => setShowAll(false)}
               aria-expanded="true"
               aria-controls="all-types"
               className="self-center rounded-full border border-warm-200 bg-white px-5 py-2 text-sm font-medium text-warm-700 active:bg-warm-50"
+              {...m.press()}
             >
               收起
-            </button>
+            </motion.button>
           </>
         ) : (
           <div className="relative">
@@ -94,16 +99,17 @@ export default function HomePage() {
               aria-hidden="true"
               className="absolute inset-x-3 top-2 h-full rounded-card border border-warm-100 bg-white shadow-sm"
             />
-            <button
+            <motion.button
               type="button"
               onClick={() => setShowAll(true)}
               aria-expanded="false"
               aria-controls="all-types"
               className="relative flex w-full items-center justify-center gap-2 rounded-card border border-warm-200 bg-white px-4 py-3 text-base font-semibold text-warm-700 shadow-sm active:bg-warm-50"
+              {...m.press()}
             >
               查看更多
               <span className="text-sm font-normal text-ink-soft">还有 {rest.length} 种</span>
-            </button>
+            </motion.button>
           </div>
         )}
       </section>

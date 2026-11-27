@@ -55,20 +55,22 @@ export default function QuizPage() {
         <p className="text-base leading-relaxed text-ink-soft">
           答案存在这一标签页里，排名按你的选择算；没答完的题不会参与。
         </p>
-        <button
+        <motion.button
           type="button"
           onClick={() => navigate('/results')}
           className="w-full rounded-card bg-warm-500 px-6 py-4 text-lg font-semibold text-white shadow-md active:bg-warm-600"
+          {...m.press()}
         >
           看看结果
-        </button>
-        <button
+        </motion.button>
+        <motion.button
           type="button"
           onClick={retake}
           className="w-full rounded-card border border-warm-200 bg-white px-6 py-3 text-base font-medium text-warm-700"
+          {...m.press()}
         >
           重新测一次
-        </button>
+        </motion.button>
       </motion.section>
     )
   }
@@ -87,14 +89,15 @@ export default function QuizPage() {
           onSelect={choose}
         />
       </motion.div>
-      <button
+      <motion.button
         type="button"
         onClick={goBack}
         disabled={step === 0}
         className="self-start text-sm text-ink-soft disabled:opacity-40"
+        {...m.press()}
       >
         返回上一题
-      </button>
+      </motion.button>
     </section>
   )
 }

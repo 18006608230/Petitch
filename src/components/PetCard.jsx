@@ -11,20 +11,22 @@ export default function PetCard({ pet, onOpen, index = 0 }) {
   const body = (
     <>
       {icon ? (
-        <img
+        <motion.img
           src={icon}
           alt=""
           width={200}
           height={200}
           className="h-12 w-12 rounded-full bg-warm-100 object-cover"
+          {...m.iconReact()}
         />
       ) : (
-        <span
+        <motion.span
           aria-hidden="true"
           className="flex h-12 w-12 items-center justify-center rounded-full bg-warm-100 text-xl font-semibold text-warm-700"
+          {...m.iconReact()}
         >
           {pet.name.slice(0, 1)}
-        </span>
+        </motion.span>
       )}
       <span className="text-lg font-semibold text-ink">{pet.name}</span>
       <span className="text-sm leading-relaxed text-ink-soft">{pet.personality}</span>

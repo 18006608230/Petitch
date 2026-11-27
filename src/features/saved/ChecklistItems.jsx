@@ -1,5 +1,7 @@
 import { useState } from 'react'
+import { motion } from 'motion/react'
 import { readCheckedIds, toggleChecklistItem } from './checklistsStore.js'
+import { STAGGER, useMotionTokens } from '../../motion.js'
 
 // 架构 §3：收 petId 与 items（getChecklist 的 5–7 项，每项含 id、label），
 // 组件自行读写勾选状态，由 A 在 #/checklist/:id 挂载；写入失败保持原勾选并提示。
@@ -9,6 +11,7 @@ export default function ChecklistItems({ petId, items }) {
     checked: readCheckedIds(petId),
     failed: false,
   }))
+  const m = useMotionTokens()
 
   // 换宠物时按新 petId 重读存储（React 官方「props 变化时调整 state」写法，不用 effect）。
   if (state.petId !== petId) {
@@ -27,10 +30,14 @@ export default function ChecklistItems({ petId, items }) {
   return (
     <div className="flex flex-col gap-2">
       <ul className="flex flex-col">
-        {items.map((item) => {
+        {items.map((item, index) => {
           const checked = state.checked.includes(item.id)
           return (
-            <li key={item.id} className="border-b border-warm-100 last:border-b-0">
+            <motion.li
+              key={item.id}
+              className="border-b border-warm-100 last:border-b-0"
+              {...m.entrance(6, index * STAGGER)}
+            >
               <label className="flex cursor-pointer items-center gap-3 py-3 text-base text-ink">
                 <input
                   type="checkbox"
@@ -40,7 +47,7 @@ export default function ChecklistItems({ petId, items }) {
                 />
                 <span className={checked ? 'font-medium text-warm-700' : ''}>{item.label}</span>
               </label>
-            </li>
+            </motion.li>
           )
         })}
       </ul>

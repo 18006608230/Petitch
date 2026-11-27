@@ -1,8 +1,12 @@
 import { Link, useParams } from 'react-router-dom'
+import { motion } from 'motion/react'
 import BreedButton from '../components/BreedButton.jsx'
 import FavoriteButton from '../features/saved/FavoriteButton.jsx'
 import { getPetIcon } from '../assets/petIcons.js'
 import { getPet } from '../data/catalog.js'
+import { useMotionTokens } from '../motion.js'
+
+const MotionLink = motion.create(Link)
 
 // 架构 §1 的 #/pets/:id：顶部难度、月花费、寿命，下方按 §1 列出的顺序展示其余十项，值全部读 pets.json 原值。
 // 收藏挂 C 的 FavoriteButton，用品清单挂到 #/checklist/:id；「试养一下」按当前类型进 C 的 TrialPage。
@@ -31,6 +35,7 @@ export default function PetDetailPage() {
   const { id } = useParams()
   const pet = getPet(id)
   const icon = getPetIcon(pet?.id)
+  const m = useMotionTokens()
 
   if (!pet) {
     return (
@@ -117,20 +122,22 @@ export default function PetDetailPage() {
       </section>
 
       <div className="flex flex-wrap items-center gap-3">
-        <Link
+        <MotionLink
           to={`/trial/${pet.id}`}
           className="self-start rounded-full bg-warm-500 px-4 py-2 text-sm font-semibold text-white active:bg-warm-600"
+          {...m.press()}
         >
           试养一下
-        </Link>
+        </MotionLink>
         <FavoriteButton petId={pet.id} />
         <BreedButton typeId={pet.id} />
-        <Link
+        <MotionLink
           to={`/checklist/${pet.id}`}
           className="self-start rounded-full border border-warm-200 bg-white px-4 py-2 text-sm font-medium text-warm-700"
+          {...m.press()}
         >
           用品清单
-        </Link>
+        </MotionLink>
       </div>
 
       <p className="text-sm leading-relaxed text-ink-soft">
