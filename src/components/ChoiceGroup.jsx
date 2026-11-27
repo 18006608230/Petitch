@@ -30,9 +30,9 @@ export default function ChoiceGroup({ options, value, onSelect }) {
             />
             <span className="relative">{option.label}</span>
             {selected && (
-              <span className="relative" aria-hidden="true">
+              <motion.span className="relative" aria-hidden="true" {...m.pop()}>
                 ✓ 已选
-              </span>
+              </motion.span>
             )}
           </motion.button>
         )

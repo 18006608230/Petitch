@@ -55,6 +55,35 @@ export function useMotionTokens() {
     press: (scale = 0.98) =>
       reduce ? {} : { whileTap: { scale, transition: TAP_SPRING } },
 
+    // 新出现的勾选标记轻微弹入。
+    pop: () =>
+      reduce
+        ? { initial: false }
+        : {
+            initial: { opacity: 0, scale: 0.8 },
+            animate: { opacity: 1, scale: 1 },
+            transition: { duration: HOVER_MS, ease: EASE },
+          },
+
+    // 收藏图标在状态切换时脉冲一次。
+    pulse: (active) =>
+      reduce
+        ? { initial: false }
+        : {
+            initial: false,
+            animate: { scale: active ? [1, 1.25, 1] : 1 },
+            transition: { duration: HOVER_MS, ease: EASE },
+          },
+
+    // 悬停图标时轻微歪头并放大。
+    iconReact: () =>
+      reduce
+        ? {}
+        : {
+            whileHover: { rotate: -4, scale: 1.06 },
+            transition: { duration: HOVER_MS, ease: EASE },
+          },
+
     // 选中态的背景层淡入，值变化只走 opacity；减弱动效时直接落到目标透明度。
     selectFade: (selected) =>
       reduce

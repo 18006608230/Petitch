@@ -3,6 +3,8 @@ import { Link, Navigate, useParams } from 'react-router-dom'
 import { motion } from 'motion/react'
 import { getPet, getScenarios } from '../../data/catalog.js'
 import { useMotionTokens } from '../../motion.js'
+
+const MotionLink = motion.create(Link)
 import {
   TOTAL_SCORE,
   TRIAL_OPTIONS,
@@ -106,26 +108,28 @@ function TrialRun({ petId }) {
               <p className="text-base leading-relaxed text-ink-soft">
                 这些麻烦你都接得住，可以开始准备用品了。
               </p>
-              <Link
+              <MotionLink
                 to={`/checklist/${petId}`}
                 className="self-start rounded-card bg-warm-500 px-5 py-3 text-base font-semibold text-white active:bg-warm-600"
+                {...m.press()}
               >
                 查看「{pet.name}」的用品清单
-              </Link>
+              </MotionLink>
             </>
           )}
         </section>
 
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-          <Link
+          <MotionLink
             to="/guide"
             className="rounded-card border border-warm-200 bg-white px-5 py-3 text-base font-medium text-warm-700 active:bg-warm-50"
+            {...m.press()}
           >
             看领养指南
-          </Link>
-          <button type="button" onClick={restart} className="text-sm text-ink-soft">
+          </MotionLink>
+          <motion.button type="button" onClick={restart} className="text-sm text-ink-soft" {...m.press()}>
             重新试养
-          </button>
+          </motion.button>
         </div>
       </motion.section>
     )
@@ -147,8 +151,7 @@ function TrialRun({ petId }) {
         >
           <motion.div
             className="h-full w-full origin-left rounded-full bg-warm-500"
-            animate={{ scaleX: (index + 1) / scenarios.length }}
-            transition={{ type: 'spring', stiffness: 210, damping: 26 }}
+            {...m.progress((index + 1) / scenarios.length)}
           />
         </div>
       </div>
@@ -167,12 +170,13 @@ function TrialRun({ petId }) {
           {TRIAL_OPTIONS.map((option) => {
             const active = selected === option.id
             return (
-              <button
+              <motion.button
                 key={option.id}
                 type="button"
                 role="radio"
                 aria-checked={active}
                 onClick={() => setSelected(option.id)}
+                {...m.press()}
                 className={`rounded-card border-2 bg-white px-5 py-3 text-left text-base leading-relaxed active:bg-warm-50 ${
                   active
                     ? 'border-warm-500 font-semibold text-warm-700'
@@ -180,19 +184,20 @@ function TrialRun({ petId }) {
                 }`}
               >
                 {option.label}
-              </button>
+              </motion.button>
             )
           })}
         </div>
 
-        <button
+        <motion.button
           type="button"
           onClick={confirm}
           disabled={selected === null}
           className="w-full rounded-card bg-warm-500 px-6 py-3 text-base font-semibold text-white active:bg-warm-600 disabled:opacity-40"
+          {...m.press()}
         >
           {index === scenarios.length - 1 ? '确认并查看结果' : '确认，下一张'}
-        </button>
+        </motion.button>
       </motion.div>
     </section>
   )

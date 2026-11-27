@@ -4,6 +4,8 @@ import { getPetIcon } from '../assets/petIcons.js'
 import { hasBreeds } from '../logic/breedCatalog.js'
 import { STAGGER, useMotionTokens } from '../motion.js'
 
+const MotionLink = motion.create(Link)
+
 // 卡片主体是去详情页的 Link；「看看品种」是卡底单独一条 Link，和主体平级，不套链接。
 export default function MatchCard({ pet, percent, reason, rank, index = 0, showTrial = false }) {
   const m = useMotionTokens()
@@ -13,8 +15,9 @@ export default function MatchCard({ pet, percent, reason, rank, index = 0, showT
     <motion.li
       className="flex flex-col rounded-card border border-warm-100 bg-white shadow-sm"
       {...m.entrance(12, index * STAGGER)}
+      {...m.lift()}
     >
-      <Link to={`/pets/${pet.id}`} className="group flex items-center gap-3 p-4">
+      <MotionLink to={`/pets/${pet.id}`} className="group flex items-center gap-3 p-4" {...m.press()}>
         <span
           aria-hidden="true"
           className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-warm-100 text-sm font-semibold text-warm-700"
@@ -49,24 +52,26 @@ export default function MatchCard({ pet, percent, reason, rank, index = 0, showT
         >
           {percent}%
         </span>
-      </Link>
+      </MotionLink>
       {(showTrial || hasBreeds(pet.id)) && (
         <div className="flex flex-wrap items-center gap-2 px-4 pb-4">
           {showTrial && (
-            <Link
+            <MotionLink
               to={`/trial/${pet.id}`}
               className="inline-block rounded-full bg-warm-500 px-4 py-2 text-sm font-semibold text-white active:bg-warm-600"
+              {...m.press()}
             >
               试养一下
-            </Link>
+            </MotionLink>
           )}
           {hasBreeds(pet.id) && (
-            <Link
+            <MotionLink
               to={`/breeds/${pet.id}`}
               className="inline-block rounded-full border border-warm-200 bg-white px-4 py-2 text-sm font-medium text-warm-700 active:bg-warm-50"
+              {...m.press()}
             >
               看看品种
-            </Link>
+            </MotionLink>
           )}
         </div>
       )}

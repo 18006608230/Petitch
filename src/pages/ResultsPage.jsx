@@ -33,13 +33,14 @@ export default function ResultsPage() {
       <motion.section className="flex flex-col gap-4 pt-6" {...m.entrance(8)}>
         <h2 className="text-xl font-semibold text-ink">{headline}</h2>
         <p className="text-base leading-relaxed text-ink-soft">{hint}</p>
-        <button
+        <motion.button
           type="button"
           onClick={remaining > 0 ? () => navigate('/quiz') : retake}
           className="w-full rounded-card border border-warm-200 bg-white px-6 py-3 text-base font-medium text-warm-700 active:bg-warm-50"
+          {...m.press()}
         >
           {answered === 0 ? '去做问卷' : remaining > 0 ? '继续做问卷' : '重新测一次'}
-        </button>
+        </motion.button>
       </motion.section>
     )
   }
@@ -63,13 +64,14 @@ export default function ResultsPage() {
           />
         ))}
       </ol>
-      <button
+      <motion.button
         type="button"
         onClick={retake}
         className="self-start rounded-card border border-warm-200 bg-white px-6 py-3 text-base font-medium text-warm-700 active:bg-warm-50"
+        {...m.press()}
       >
         重新测一次
-      </button>
+      </motion.button>
     </motion.section>
   )
 }

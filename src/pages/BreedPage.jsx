@@ -48,13 +48,14 @@ export default function BreedPage() {
           )
         })}
       </ol>
-      <button
+      <motion.button
         type="button"
         onClick={() => navigate('/results')}
         className="self-start rounded-card border border-warm-200 bg-white px-6 py-3 text-base font-medium text-warm-700 active:bg-warm-50"
+        {...m.press()}
       >
         返回结果
-      </button>
+      </motion.button>
     </motion.section>
   )
 }
